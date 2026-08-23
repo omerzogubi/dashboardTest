@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Adaptive Dashboard Evaluation Guide</title>
+  <style>
+    body { font-family: Arial, sans-serif; color: #182230; margin: 32px auto; max-width: 980px; line-height: 1.5; }
+    h1, h2, h3 { margin-bottom: .35em; }
+    h1 { border-bottom: 3px solid #2457c5; padding-bottom: 10px; }
+    .note { background: #eef4ff; border-left: 5px solid #2457c5; padding: 12px 14px; margin: 18px 0; }
+    .warning { background: #fff7e6; border-left: 5px solid #b54708; padding: 12px 14px; margin: 18px 0; }
+    .task { page-break-inside: avoid; border: 1px solid #d9dee8; border-radius: 12px; padding: 18px; margin: 20px 0; }
+    .script { background: #f7f9fc; padding: 12px; border-radius: 8px; }
+    table { width: 100%; border-collapse: collapse; margin: 12px 0; }
+    th, td { border: 1px solid #d9dee8; padding: 9px; text-align: left; vertical-align: top; }
+    th { background: #f1f4f8; }
+    ul { margin-top: 6px; }
+    .line { display: inline-block; min-width: 150px; border-bottom: 1px solid #667085; }
+    @media print { body { margin: 12mm; } .task { break-inside: avoid; } }
+  </style>
+</head>
+<body>
+  <h1>Adaptive Dashboard Usability Evaluation Guide</h1>
+
+  <div class="note">
+    <strong>Researcher setup:</strong> Open the dashboard, choose a scenario from <em>Researcher setup</em>, then click <em>Enter participant view</em>. Use <strong>Ctrl + Shift + M</strong> to restore researcher controls after the task.
+  </div>
+
+  <h2>Participant introduction</h2>
+  <div class="script">
+    This is a simulated industrial device-management dashboard. You may select devices, inspect information, use filters, and perform available actions. The interface may reorganize or emphasize information according to the operational situation. Please work as you normally would and briefly explain what you are looking for and why. Some device processes are simulated and do not communicate with real equipment.
+  </div>
+
+  <h2>Practice task</h2>
+  <p>Load <strong>Normal Monitoring</strong>. Ask the participant to select any normal device and inspect its details. This familiarizes them with device selection and action controls. Do not train them on any evaluated task.</p>
+
+  <div class="warning">
+    Do not tell participants the target device name, the correct button, or the required action sequence. Give the scenario goal only. Provide help only when the participant is genuinely blocked, and record that assistance.
+  </div>
+
+  <section class="task">
+    <h2>Task 1 — Critical Incident Handling</h2>
+    <p><strong>Load:</strong> Critical Incident</p>
+    <h3>Participant instruction</h3>
+    <div class="script">
+      A communication incident has occurred in the device environment. Use the dashboard to identify the affected device, investigate the problem, and restore communication if the available information indicates that recovery is possible. Tell me when you believe the system has returned to a stable state.
+    </div>
+    <h3>Expected successful behavior</h3>
+    <ul>
+      <li>Identifies and selects Gateway B2.</li>
+      <li>Recognizes that the device is disconnected and the incident is unresolved.</li>
+      <li>Runs connection diagnostics and interprets the result.</li>
+      <li>Attempts reconnection.</li>
+      <li>Recognizes the online/resolved state and cleared critical alert.</li>
+    </ul>
+    <h3>Observe</h3>
+    <p>Time to identify incident; unnecessary device selections; understanding of diagnosis; action errors; recognition of resolution.</p>
+  </section>
+
+  <section class="task">
+    <h2>Task 2 — Firmware Update Supervision</h2>
+    <p><strong>Load:</strong> Firmware Supervision</p>
+    <h3>Participant instruction</h3>
+    <div class="script">
+      A firmware deployment is active while another operational issue remains in the fleet. Supervise the update through completion, verify its result, and confirm whether important information about the other operational issue remains accessible.
+    </div>
+    <h3>Expected successful behavior</h3>
+    <ul>
+      <li>Finds and selects Control Unit F6.</li>
+      <li>Understands the current and target firmware state.</li>
+      <li>Starts live progress monitoring once and waits for completion.</li>
+      <li>Verifies the completed installation.</li>
+      <li>Finds the critical Gateway B2 issue through alerts, device selection, or secondary information.</li>
+    </ul>
+    <h3>Observe</h3>
+    <p>Ability to maintain task focus; understanding of progress/completion/verification; awareness of secondary critical information.</p>
+  </section>
+
+  <section class="task">
+    <h2>Task 3 — Multi-Device Prioritization</h2>
+    <p><strong>Load:</strong> Multi-Device Monitoring</p>
+    <h3>Participant instruction</h3>
+    <div class="script">
+      Several devices have different operational states. Determine which device requires immediate attention, focus the device list on critical devices, inspect the urgent device, and then restore the complete fleet overview.
+    </div>
+    <h3>Expected successful behavior</h3>
+    <ul>
+      <li>Identifies the critical category and Gateway B2.</li>
+      <li>Uses the Critical filter.</li>
+      <li>Inspects the critical device.</li>
+      <li>Returns the filter to All states and recognizes the complete overview.</li>
+    </ul>
+    <h3>Observe</h3>
+    <p>Scanning strategy; filter discoverability; understanding of grouped priority; ability to recover the full overview.</p>
+  </section>
+
+  <section class="task">
+    <h2>Task 4 — Maintenance Planning</h2>
+    <p><strong>Load:</strong> Maintenance Planning</p>
+    <h3>Participant instruction</h3>
+    <div class="script">
+      A device requires preventive maintenance planning. Identify the device, review the maintenance requirement and prerequisites, and plan the inspection when the necessary information has been confirmed.
+    </div>
+    <h3>Expected successful behavior</h3>
+    <ul>
+      <li>Finds and selects Energy Meter E5.</li>
+      <li>Reviews the maintenance plan.</li>
+      <li>Completes all planning prerequisites.</li>
+      <li>Plans the inspection.</li>
+      <li>Recognizes the updated Inspection planned state.</li>
+    </ul>
+    <h3>Observe</h3>
+    <p>Identification of maintenance state; checklist understanding; action sequencing; confirmation of the final planned state.</p>
+  </section>
+
+  <h2>Scoring per task</h2>
+  <table>
+    <tr><th>Result</th><th>Definition</th></tr>
+    <tr><td>Successful</td><td>Completes the operational goal without researcher assistance and correctly understands the final state.</td></tr>
+    <tr><td>Partially successful</td><td>Completes the main goal but needs minor assistance, misses an important secondary element, or misunderstands part of the feedback.</td></tr>
+    <tr><td>Unsuccessful</td><td>Cannot complete the goal, chooses an inappropriate final action, or does not recognize the resulting system state.</td></tr>
+  </table>
+
+  <h2>Observer record</h2>
+  <p>Participant code: <span class="line"></span> &nbsp; Date: <span class="line"></span></p>
+  <table>
+    <tr><th>Task</th><th>Time</th><th>Result</th><th>Assistance</th><th>Key observations</th></tr>
+    <tr><td>1</td><td></td><td></td><td></td><td></td></tr>
+    <tr><td>2</td><td></td><td></td><td></td><td></td></tr>
+    <tr><td>3</td><td></td><td></td><td></td><td></td></tr>
+    <tr><td>4</td><td></td><td></td><td></td><td></td></tr>
+  </table>
+
+  <h2>After each task</h2>
+  <p>Collect NASA-TLX ratings and short comments. Suggested prompts:</p>
+  <ul>
+    <li>What information helped you most?</li>
+    <li>Was anything unclear or unexpectedly emphasized?</li>
+    <li>Could you still access information outside the immediate task?</li>
+  </ul>
+
+  <h2>Final interview</h2>
+  <ul>
+    <li>Which context was easiest and which was most difficult?</li>
+    <li>Did the dashboard guide attention without taking away control?</li>
+    <li>Were any interface changes confusing?</li>
+    <li>What should be improved before this dashboard could be used in a real device-management environment?</li>
+  </ul>
+</body>
+</html>

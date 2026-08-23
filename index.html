@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Adaptive Device Operations Dashboard</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <div class="app-shell">
+    <header class="topbar">
+      <div class="brand-block">
+        <div class="brand-mark" aria-hidden="true">AD</div>
+        <div>
+          <p class="product-kicker">Device Operations</p>
+          <h1>Adaptive Operations Dashboard</h1>
+        </div>
+      </div>
+
+      <div class="topbar-status">
+        <div class="system-status"><span class="status-dot"></span> Simulation online</div>
+        <div class="context-pill">
+          <span>Active context</span>
+          <strong id="activeContextLabel">Normal Monitoring</strong>
+        </div>
+        <button class="secondary-button researcher-control" id="openScenarioPanel" type="button">
+          Researcher setup
+        </button>
+      </div>
+    </header>
+
+    <section class="context-strip" id="contextStrip">
+      <div>
+        <span class="context-icon" id="contextIcon">●</span>
+        <strong id="contextHeadline">Balanced operational overview</strong>
+      </div>
+      <p id="contextDescription">All information remains available with balanced visual priority.</p>
+    </section>
+
+    <section class="metrics-grid" id="metricsGrid" aria-label="System metrics"></section>
+
+    <main class="workspace-grid">
+      <section class="panel device-panel" id="devicePanel">
+        <div class="panel-header">
+          <div>
+            <p class="panel-kicker">Fleet</p>
+            <h2>Device Explorer</h2>
+          </div>
+          <span class="panel-count" id="deviceCount">0 devices</span>
+        </div>
+
+        <div class="device-toolbar">
+          <label class="search-box">
+            <span class="sr-only">Search devices</span>
+            <input id="deviceSearch" type="search" placeholder="Search device or location" autocomplete="off" />
+          </label>
+
+          <div class="toolbar-row">
+            <label>
+              <span class="sr-only">Filter devices</span>
+              <select id="deviceFilter">
+                <option value="all">All states</option>
+                <option value="critical">Critical</option>
+                <option value="warning">Warning</option>
+                <option value="maintenance">Maintenance</option>
+                <option value="updating">Updating</option>
+                <option value="normal">Normal</option>
+              </select>
+            </label>
+
+            <label>
+              <span class="sr-only">Sort devices</span>
+              <select id="deviceSort">
+                <option value="priority">Sort: Priority</option>
+                <option value="name">Sort: Name</option>
+                <option value="group">Sort: Location</option>
+              </select>
+            </label>
+          </div>
+        </div>
+
+        <div class="device-list" id="deviceList"></div>
+      </section>
+
+      <section class="center-column">
+        <section class="panel details-panel" id="detailsPanel">
+          <div class="panel-header">
+            <div>
+              <p class="panel-kicker">Investigation</p>
+              <h2>Device Details</h2>
+            </div>
+            <div id="selectedDeviceBadge"></div>
+          </div>
+          <div id="deviceDetails" class="empty-state">
+            <div class="empty-icon" aria-hidden="true">↖</div>
+            <h3>Select a device to investigate</h3>
+            <p>Review any device in the fleet. The dashboard will adapt the available details and actions to your selection.</p>
+          </div>
+        </section>
+
+        <section class="panel workflow-panel" id="workflowPanel">
+          <div class="panel-header">
+            <div>
+              <p class="panel-kicker">Current work</p>
+              <h2>Operational Workspace</h2>
+            </div>
+            <span class="workflow-state" id="workflowState">Waiting for selection</span>
+          </div>
+          <div id="workflowContent" class="empty-state compact">
+            <h3>No active operation</h3>
+            <p>Select a device and inspect the available actions.</p>
+          </div>
+        </section>
+
+        <section class="panel actions-panel" id="actionsPanel">
+          <div class="panel-header">
+            <div>
+              <p class="panel-kicker">Controls</p>
+              <h2>Available Actions</h2>
+            </div>
+          </div>
+          <div class="action-grid" id="actionControls">
+            <p class="muted-message">Actions appear after you select a device.</p>
+          </div>
+        </section>
+      </section>
+
+      <aside class="right-column">
+        <section class="panel alert-panel" id="alertPanel">
+          <div class="panel-header">
+            <div>
+              <p class="panel-kicker">Live events</p>
+              <h2>Operational Alerts</h2>
+            </div>
+            <span class="panel-count" id="alertCount">0 active</span>
+          </div>
+          <div class="alert-list" id="alertList"></div>
+        </section>
+
+        <section class="panel activity-panel">
+          <div class="panel-header">
+            <div>
+              <p class="panel-kicker">System feedback</p>
+              <h2>Activity Timeline</h2>
+            </div>
+          </div>
+          <div class="activity-list" id="activityList"></div>
+        </section>
+
+        <section class="panel secondary-panel" id="secondaryPanel">
+          <div class="panel-header">
+            <div>
+              <p class="panel-kicker">Adaptable access</p>
+              <h2>Secondary Information</h2>
+            </div>
+            <button class="text-button" id="toggleSecondary" type="button">Show</button>
+          </div>
+          <div class="secondary-content hidden" id="secondaryContent"></div>
+        </section>
+      </aside>
+    </main>
+  </div>
+
+  <div class="drawer-backdrop hidden researcher-control" id="drawerBackdrop"></div>
+  <aside class="scenario-drawer hidden researcher-control" id="scenarioDrawer" aria-label="Researcher scenario setup">
+    <div class="drawer-header">
+      <div>
+        <p class="panel-kicker">Researcher only</p>
+        <h2>Scenario Setup</h2>
+      </div>
+      <button class="icon-button" id="closeScenarioPanel" type="button" aria-label="Close scenario setup">×</button>
+    </div>
+
+    <p class="drawer-intro">
+      Load a scenario, then enter participant view before handing over the dashboard.
+    </p>
+
+    <div class="scenario-list">
+      <button class="scenario-card active" data-scenario="normal" type="button">
+        <span>0</span>
+        <div><strong>Normal Monitoring</strong><small>Practice and familiarization</small></div>
+      </button>
+      <button class="scenario-card" data-scenario="critical" type="button">
+        <span>1</span>
+        <div><strong>Critical Incident</strong><small>Diagnose and restore communication</small></div>
+      </button>
+      <button class="scenario-card" data-scenario="firmware" type="button">
+        <span>2</span>
+        <div><strong>Firmware Supervision</strong><small>Monitor completion and verify result</small></div>
+      </button>
+      <button class="scenario-card" data-scenario="multi" type="button">
+        <span>3</span>
+        <div><strong>Multi-Device Prioritization</strong><small>Filter urgent states and recover overview</small></div>
+      </button>
+      <button class="scenario-card" data-scenario="maintenance" type="button">
+        <span>4</span>
+        <div><strong>Maintenance Planning</strong><small>Review requirements and plan inspection</small></div>
+      </button>
+    </div>
+
+    <div class="drawer-actions">
+      <button class="secondary-button" id="resetScenario" type="button">Reset current scenario</button>
+      <button class="primary-button" id="enterParticipantMode" type="button">Enter participant view</button>
+    </div>
+
+    <p class="shortcut-note">Press <kbd>Ctrl</kbd> + <kbd>Shift</kbd> + <kbd>M</kbd> to restore researcher controls.</p>
+  </aside>
+
+  <div class="toast-region" id="toastRegion" aria-live="polite" aria-atomic="true"></div>
+
+  <script src="app.js"></script>
+</body>
+</html>
